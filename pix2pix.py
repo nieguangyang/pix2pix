@@ -4,7 +4,6 @@ from keras.layers import Conv2D, BatchNormalization, LeakyReLU, Activation, Conv
 from keras.layers import Input, Concatenate
 from keras.initializers import RandomNormal
 from keras.optimizers import Adam
-from keras import backend as K
 from matplotlib import pyplot as plt
 from data import load_batch
 from model import MODEL_DIR
@@ -207,6 +206,13 @@ def train():
 
 
 def test():
+    def imshow(ax, normalize_image, title):
+        img = ((normalize_image + 1) * 127.5).astype(np.uint8)[0]
+        ax.imshow(img)
+        ax.axes.get_xaxis().set_visible(False)
+        ax.axes.get_yaxis().set_visible(False)
+        ax.set_title(title)
+
     epochs = [50, 100, 150, 200]
     models = ["facade_%d" % epoch for epoch in epochs]
     gans = []
@@ -215,23 +221,14 @@ def test():
         p2p.load_model(model)
         gans.append(p2p)
     for real, cond in load_batch("facade", "test", 256, 1):
-        _cond = ((cond + 1) * 127.5).astype(np.uint8)[0]
-        _real = ((real + 1) * 127.5).astype(np.uint8)[0]
         ax = plt.subplot(231)
-        ax.imshow(_cond)
-        ax.axes.get_xaxis().set_visible(False)
-        ax.axes.get_yaxis().set_visible(False)
+        imshow(ax, cond, "conditional")
         ax = plt.subplot(232)
-        ax.imshow(_real)
-        ax.axes.get_xaxis().set_visible(False)
-        ax.axes.get_yaxis().set_visible(False)
-        for gi, gan in enumerate(gans):
+        imshow(ax, real, "real")
+        for gi, (epoch, gan) in enumerate(zip(epochs, gans)):
             fake = gan.generator.predict(cond)
-            _fake = ((fake + 1) * 127.5).astype(np.uint8)[0]
             ax = plt.subplot(2, 3, gi + 3)
-            ax.imshow(_fake)
-            ax.axes.get_xaxis().set_visible(False)
-            ax.axes.get_yaxis().set_visible(False)
+            imshow(ax, fake, "epoch %d" % epoch)
         plt.show()
 
 
