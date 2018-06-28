@@ -1,11 +1,12 @@
-### base on
-https://github.com/tjwei/GANotebooks
-https://github.com/eriklindernoren/Keras-GAN
-
-### dataset
-https://people.eecs.berkeley.edu/~tinghuiz/projects/pix2pix/datasets/
-
-### result
-<img src="result/result1.png" />
-<img src="result/result2.png" />
-<img src="result/result3.png" />
+### base on<br>
+https://github.com/tjwei/GANotebooks<br>
+https://github.com/eriklindernoren/Keras-GAN<br>
+<br>
+### dataset<br>
+https://people.eecs.berkeley.edu/~tinghuiz/projects/pix2pix/datasets/<br>
+<br>
+### result<br>
+<img src="result/result1.png" /><br>
+<img src="result/result2.png" /><br>
+<img src="result/result3.png" /><br>
+<br>
