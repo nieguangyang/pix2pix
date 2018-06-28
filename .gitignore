@@ -117,7 +117,7 @@ gen
 *.jpg
 
 # numpy file
-#*.npz
+*.npz
 
 # model
 *.h5
